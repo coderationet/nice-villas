@@ -1,0 +1,9 @@
+.category-page{
+    .accordion-item .accordion-button.collapsed,
+    .accordion-item .accordion-button{
+        border-bottom: 0!important;
+        background: #fff;
+        box-shadow: none;
+        -webkit-box-shadow: none;
+    }
+}

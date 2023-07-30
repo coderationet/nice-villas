@@ -1,0 +1,9 @@
+@import "bootstrap/dist/css/bootstrap.min.css";
+@import "fontawesome-free/css/all.min.css";
+@import "home.scss";
+@import "menu.scss";
+@import "general.scss";
+@import "breadcrumb.scss";
+@import "category.scss";
+@import "footer.scss";
+@import "item.scss";

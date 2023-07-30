@@ -1,0 +1,20 @@
+.main-navigation{
+    background-color: #fff;
+    a{
+        color: #000;
+        &:hover{
+            color: #000;
+        }
+    }
+
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 12px;
+    -webkit-box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 12px;
+
+    .nav-category-link{
+        color: #000;
+        &:hover{
+            color: rgba(0, 0, 0, 0.5);
+            background-color: rgb(222, 226, 230);
+        }
+    }
+}
