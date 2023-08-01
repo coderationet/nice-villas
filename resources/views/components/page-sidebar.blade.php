@@ -1,4 +1,4 @@
-<div>
+<div class="mb-3">
     <ul class="list-group">
         @foreach($pages as $page_)
             <li
