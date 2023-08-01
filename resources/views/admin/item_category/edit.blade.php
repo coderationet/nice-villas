@@ -49,8 +49,10 @@
     </section>
     </div>
 @endsection
-@section('extra-js')
+@push('extra-footer')
+    @include('admin.item_category._slug_generator_js',['item' => isset($item_category) ? $item_category : null])
     <script>
+
         $('.editor').summernote({
             height: 300,
             toolbar: [
@@ -58,4 +60,4 @@
             ]
         });
     </script>
-@endsection
+@endpush

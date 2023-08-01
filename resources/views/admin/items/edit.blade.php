@@ -44,6 +44,16 @@
                                                        required
                                                        placeholder="{{__('admin/general.title')}}">
                                             </div>
+                                            <div class="form-group">
+                                                <label for="slug">{{__('admin/general.slug')}}</label>
+                                                <input type="text" class="form-control" id="slug"
+                                                       value="{{isset($item) ? $item->slug : ''}}"
+                                                       name="slug"
+                                                       required
+                                                       placeholder="{{__('admin/general.slug')}}">
+                                                <div class="alert alert-success d-none mt-2"></div>
+                                                <div class="alert alert-danger d-none mt-2"></div>
+                                            </div>
                                             <!-- description part -->
                                             <div class="form-group">
                                                 <label for="description">{{__('admin/general.description')}}</label>
@@ -168,6 +178,45 @@
     <script src="{{asset('assets/admin/summernote/custom-image-dialog.plugin.js')}}"></script>
     @include('admin.js.summernote-turkish')
     <script type="module">
+
+        $('#title').change(function (){
+            // if slug is empty then set slug value
+            // doesnt allow space and special chars except -
+            if($('#slug').val() == ''){
+                $('#slug').val($(this).val().replace(/[^a-z0-9\s]/gi, '-').replace(/[_\s]/g, '-').toLowerCase());
+            }
+
+        });
+
+        $('#slug').keyup(function (e) {
+
+            // doesnt allow space and special chars except -
+            $(this).val($(this).val().replace(/[^a-z0-9\s]/gi, '-').replace(/[_\s]/g, '-').toLowerCase());
+
+            var except_post_id = '';
+
+            @if(isset($item))
+                except_post_id = '{{$item->id}}';
+            @endif
+
+            $.get("{{route('admin.items.get_item')}}?slug="+$(this).val()+"&except_post_id="+except_post_id,function (data) {
+
+                if(data.exists === true){
+
+                    $('.alert-success').addClass('d-none');
+                    $('.alert-danger').removeClass('d-none');
+                    $('.alert-danger').html(data.msg);
+
+                }else {
+
+                    $('.alert-success').removeClass('d-none');
+                    $('.alert-danger').addClass('d-none');
+                    $('.alert-success').html(data.msg);
+
+                }
+            });
+        });
+
         $(document).on('click','.create-new-category-ajax',function () {
             var form_data = '';
             // add csrf token to form data get token from meta

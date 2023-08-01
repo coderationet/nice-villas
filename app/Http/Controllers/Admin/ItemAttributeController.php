@@ -7,6 +7,7 @@ use App\Models\Attribute;
 use App\Models\AttributeValue;
 use Illuminate\Http\Request;
 use App\Models\Item;
+use Illuminate\Support\Facades\Validator;
 
 class ItemAttributeController extends Controller
 {
@@ -33,15 +34,26 @@ class ItemAttributeController extends Controller
     public function store(Request $request)
     {
         // name
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             "type" => "required|string|in:select,radio,checkbox,multiselect",
         ]);
 
+        if ($validator->fails()) {
+            if ($request->has('response_type') && $request->response_type == "json") {
+                return response()->json([
+                    'status' => "error",
+                    'msg' => $validator->errors()->first(),
+                    'data' => null
+                ]);
+            }
+            return redirect()->back()->with('error', $validator->errors()->first());
+        }
+
         // check if attribute already exists
         $attribute = Attribute::where('name', $request->name)->first();
-        if ($attribute){
-            if ($request->has('response_type') && $request->response_type == "json"){
+        if ($attribute) {
+            if ($request->has('response_type') && $request->response_type == "json") {
                 return response()->json([
                     'status' => "error",
                     'msg' => 'Attribute already exists.',
@@ -55,9 +67,10 @@ class ItemAttributeController extends Controller
         $attribute = Attribute::create([
             'name' => $request->name,
             'type' => $request->type,
+            'slug' => $request->slug,
         ]);
 
-        if ($request->has('response_type') && $request->response_type == "json"){
+        if ($request->has('response_type') && $request->response_type == "json") {
             return response()->json([
                 'status' => "success",
                 'msg' => 'Attribute created.',
@@ -85,7 +98,7 @@ class ItemAttributeController extends Controller
     {
         $attribute = Attribute::findOrFail($id);
         $attribute_values = $attribute->values()->simplePaginate(10);
-        return view('admin.item_attribute.edit', compact('attribute','attribute_values'));
+        return view('admin.item_attribute.edit', compact('attribute', 'attribute_values'));
     }
 
     /**
@@ -93,17 +106,23 @@ class ItemAttributeController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        // name
-        $request->validate([
+
+        $validate = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'type' => 'required|string|in:select,radio,checkbox,multiselect',
+            'slug' => 'required|string|max:255|unique:attributes,slug,' . $id,
         ]);
+
+        if ($validate->fails()) {
+            return redirect()->back()->with('error', $validate->errors()->first());
+        }
 
         // update
         $attribute = Attribute::findOrFail($id);
         $attribute->update([
             'name' => $request->name,
             'type' => $request->type,
+            'slug' => $request->slug,
         ]);
 
         // redirect
@@ -121,7 +140,8 @@ class ItemAttributeController extends Controller
         return redirect()->route('admin.item-attributes.index')->with('success', 'Attribute deleted.');
     }
 
-    function ajax_data(){
+    function ajax_data()
+    {
         // ajax data for select2
         $attributes = Attribute::query();
 
@@ -132,7 +152,7 @@ class ItemAttributeController extends Controller
             $attributes->where('name', 'LIKE', "%$search%");
         }
 
-        if (request()->has('attribute_id')){
+        if (request()->has('attribute_id')) {
             $attributes->where('id', request()->get('attribute_id'));
         }
 
@@ -156,5 +176,37 @@ class ItemAttributeController extends Controller
         return response()->json([
             'results' => $response
         ]);
+    }
+
+    function get_item_attribute()
+    {
+
+        $item = Attribute::query();
+
+        //except_post_id
+        if (request()->has('except_post_id')) {
+            $except_post_id = request()->get('except_post_id');
+            $item = $item->where('id', '!=', $except_post_id);
+        }
+
+        // check based on slug
+        if (request()->has('slug')) {
+            $slug = request()->get('slug');
+            $item = $item->where('slug', $slug);
+        }
+
+        // check based on id
+        if (request()->has('id')) {
+            $id = request()->get('id');
+            $item = $item->where('id', '!=', $id);
+        }
+
+        $item = $item->first();
+
+        if ($item) {
+            return response()->json(['exists' => true, 'item' => $item, 'msg' => __('admin/item.msg.slug_exists')]);
+        }
+
+        return response()->json(['exists' => false, 'msg' => __('admin/item.msg.slug_not_exists')]);
     }
 }

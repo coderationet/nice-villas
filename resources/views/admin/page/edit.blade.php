@@ -34,30 +34,22 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="form-group">
-                                        <label for="name">{{__('admin/general.title')}}</label>
+                                        <label for="name">{{__('admin/general.name')}}</label>
                                         <input type="text" required name="name" id="name" class="form-control"
                                                value="{{isset($page) ? $page->name : ''}}">
                                     </div>
+                                    @include('admin.form._input',[
+                                         'input_name'=>'slug',
+                                         'title'=>__('admin/general.slug'),
+                                         'placeholder'=>__('admin/general.insert_slug'),
+                                         'item' => $attribute ?? null,
+                                         'with_alerts' => true
+                                     ])
                                     <div class="form-group">
                                         <label for="content">{{__('admin/general.content')}}</label>
                                         <textarea required name="content" id="content"
                                                   class="form-control">{{isset($page) ? $page->content : ''}}</textarea>
                                     </div>
-                                    @if(!isset($page) || $page->is_protected != true)
-                                        <div class="form-group">
-                                            <label for="page_type">{{__('admin/pages.page_type')}}</label>
-                                            <select name="page_type" class="form-control">
-                                                <option
-                                                    value="normal" {{isset($page) && $page->page_type == 'normal' ? 'selected' : ''}}>
-                                                    {{__('admin/general.normal')}}
-                                                </option>
-                                                <option
-                                                    value="product_tab" {{isset($page) && $page->page_type == 'product_tab' ? 'selected' : ''}}>
-                                                    {{__('admin/general.product_tab')}}
-                                                </option>
-                                            </select>
-                                        </div>
-                                    @endif
                                     <button type="submit" class="btn btn-primary">
                                         {{isset($page) ? __('admin/general.update') : __('admin/general.create')}}
                                     </button>
@@ -93,4 +85,5 @@
         });
     </script>
     @include('admin.media_library.form-dialog-includes')
+    @include('admin.page._slug_generator_js', ['item' => isset($page) ? $page : null])
 @endpush

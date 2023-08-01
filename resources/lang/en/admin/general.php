@@ -16,6 +16,7 @@ return [
     "create" => "Create",
     "name" => "Name",
     "title" => "Title",
+    "slug" => "Slug",
     "sub_title" => "Sub Title",
     "order" => "Order",
     "search" => "Search",
@@ -53,4 +54,8 @@ return [
     "logo" => "Logo",
     "password" => "Password",
     "repeat_password" => "Repeat Password",
+    "insert_slug" => "Insert Slug",
+    "msg" => [
+        "invalid_data" => "Invalid Data",
+    ]
 ];

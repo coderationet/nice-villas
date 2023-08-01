@@ -15,9 +15,12 @@ Route::group(['middleware' => ['auth','role:admin'],'prefix' => 'admin', 'as' =>
 
     // Items
     Route::get('items/attribute-value-row-html', [Admin\ItemController::class,'attribute_value_row_html'])->name('items.attribute_value_row_html');
+    Route::get('items/get-item', [Admin\ItemController::class,'get_item'])->name('items.get_item');
     Route::get('items/data', [Admin\ItemController::class,'data'])->name('items.data');
     Route::resource('items', Admin\ItemController::class);
 
+    // Item Attributes
+    Route::get('item-attributes/get-item-attribute',[Admin\ItemAttributeController::class,'get_item_attribute'])->name('item-attributes.get_item_attribute');
     Route::get('item-attributes/ajax-data',[Admin\ItemAttributeController::class,'ajax_data'])->name('item-attributes.ajax_data');
     Route::resource('item-attributes',Admin\ItemAttributeController::class);
 
@@ -25,6 +28,7 @@ Route::group(['middleware' => ['auth','role:admin'],'prefix' => 'admin', 'as' =>
     Route::resource('item-attribute-values',Admin\ItemAttributeValueController::class);
 
     // Item Categories
+    Route::get('item-categories/get-item-category', [Admin\ItemCategoryController::class,'get_item_category'])->name('item-categories.get_item_category');
     Route::get('item-categories/new-category-form-html', [Admin\ItemCategoryController::class,'new_category_form_html'])->name('item-categories.new_category_form_html');
     Route::resource('item-categories', Admin\ItemCategoryController::class);
 
@@ -42,6 +46,7 @@ Route::group(['middleware' => ['auth','role:admin'],'prefix' => 'admin', 'as' =>
     Route::resource('contacts',Admin\ContactController::class);
 
     // Pages
+    Route::get('pages/get-page',[Admin\PageController::class,'get_page'])->name('pages.get_page');
     Route::get('pages/data',[Admin\PageController::class,'data'])->name('pages.data');
     Route::resource('pages',Admin\PageController::class);
 

@@ -47,6 +47,36 @@ class PageController extends Controller
         //
     }
 
+    public function get_page(){
+        $item = Page::query();
+
+        //except_post_id
+        if (request()->has('except_post_id')) {
+            $except_post_id = request()->get('except_post_id');
+            $item = $item->where('id', '!=', $except_post_id);
+        }
+
+        // check based on slug
+        if (request()->has('slug')) {
+            $slug = request()->get('slug');
+            $item = $item->where('slug', $slug);
+        }
+
+        // check based on id
+        if (request()->has('id')) {
+            $id = request()->get('id');
+            $item = $item->where('id', '!=', $id);
+        }
+
+        $item = $item->first();
+
+        if ($item) {
+            return response()->json(['exists' => true, 'item' => $item, 'msg' => __('admin/item.msg.slug_exists')]);
+        }
+
+        return response()->json(['exists' => false, 'msg' => __('admin/item.msg.slug_not_exists')]);
+    }
+
     /**
      * Show the form for editing the specified resource.
      */

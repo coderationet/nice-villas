@@ -39,17 +39,26 @@ class ItemController extends Controller
         $validator = Validator::make($request->all(), [
             'title' => ['string', 'required', 'max:255'],
             'description' => ['string', 'required'],
+            'slug' => ['string', 'required'],
         ]);
         if ($validator->fails()) {
-            return redirect()->back()->with('error', 'İlan Kaydedilemedi');
+            return redirect()->back()->with('error', __('admin/general.msg.invalid_data'));
         }
         // create a new item
         $item = new Item();
         $item->title = $request->title;
         $item->description = $request->description;
+        $item->slug = $request->slug;
 
         if ($request->has('thumbnail_id')) {
             $item->thumbnail_id = $request->thumbnail_id;
+        }
+
+        // check if slug is exsits
+        $slug = $request->slug;
+        $item_check = Item::where('slug', $slug)->first();
+        if ($item_check) {
+            return redirect()->back()->with('error', __('admin/item.msg.slug_exists'));
         }
 
         // save the item
@@ -92,6 +101,39 @@ class ItemController extends Controller
     public function show(string $id)
     {
         //
+    }
+
+    public function get_item(){
+
+        $item = Item::query();
+
+        //except_post_id
+        if (request()->has('except_post_id')){
+            $except_post_id = request()->get('except_post_id');
+            $item = $item->where('id','!=',$except_post_id);
+        }
+
+
+        // check based on slug
+        if (request()->has('slug')) {
+            $slug = request()->get('slug');
+            $item = $item->where('slug', $slug);
+        }
+
+        // check based on id
+        if (request()->has('id')) {
+            $id = request()->get('id');
+            $item = $item->where('id', '!=', $id);
+        }
+
+        $item = $item->first();
+
+        if ($item) {
+            return response()->json(['exists' => true,'item' => $item,'msg' => __('admin/item.msg.slug_exists')]);
+        }
+
+        return response()->json(['exists' => false,'msg' => __('admin/item.msg.slug_not_exists')]);
+
     }
 
     /**
@@ -163,6 +205,16 @@ class ItemController extends Controller
         }
 
         $item->categories()->sync($categories);
+
+
+        // check if slug is exsits
+        $slug = $request->slug;
+        $item_check = Item::where('slug', $slug)->where('id','!=',$id)->first();
+        if ($item_check) {
+            return redirect()->back()->with('error', __('admin/item.msg.slug_exists'));
+        }
+
+        $item->slug = $request->slug;
 
         // save the item
         $item->save();

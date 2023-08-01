@@ -43,6 +43,13 @@
                                         'placeholder'=>__('admin/attributes.insert_attribute_name'),
                                         'item' => $attribute ?? null
                                     ])
+                                    @include('admin.form._input',[
+                                        'input_name'=>'slug',
+                                        'title'=>__('admin/general.slug'),
+                                        'placeholder'=>__('admin/attributes.insert_attribute_slug'),
+                                        'item' => $attribute ?? null,
+                                        'with_alerts' => true
+                                    ])
                                     <div class="form-group">
                                         <label for="type">{{__('admin/general.type')}}</label>
                                         <select name="type" class="form-control">
@@ -128,11 +135,12 @@
         </section>
     </div>
 @endsection
-@section('extra-js')
+@push('extra-footer')
+    @include('admin.item_attribute._slug_generator_js',['item' => $attribute ?? null])
     <script>
         $('.editor').summernote({
             height: 300,
             toolbar: []
         });
     </script>
-@endsection
+@endpush

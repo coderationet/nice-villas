@@ -6,6 +6,7 @@ use App\Helpers\HierarchicalListingHelper;
 use App\Http\Controllers\Controller;
 use App\Models\ItemCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ItemCategoryController extends Controller
 {
@@ -33,9 +34,21 @@ class ItemCategoryController extends Controller
     public function store(Request $request)
     {
         // name,parent_id
-        $request->validate([
-            'name' => 'required'
+        $validate = Validator::make($request->all(), [
+            'name' => 'required',
+            'parent_id' => 'nullable|exists:item_categories,id',
+            'slug' => 'required|unique:item_categories,slug',
         ]);
+
+        if ($validate->fails()) {
+            if ($request->has('response_type') && $request->response_type == 'json') {
+                return response()->json([
+                    'status' => 'error',
+                    'msg' => $validate->errors()->first()
+                ]);
+            }
+            return redirect()->back()->with('error',$validate->errors()->first());
+        }
 
         if (!$request->has('parent_id')){
             $request->merge(['parent_id' => null]);
@@ -84,11 +97,15 @@ class ItemCategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $request->validate([
+        $validate = Validator::make($request->all(), [
             'name' => 'required',
-            'parent_id' => 'nullable|exists:item_categories,id'
+            'parent_id' => 'nullable|exists:item_categories,id',
+            'slug' => 'required|unique:item_categories,slug,'.$id,
         ]);
 
+        if ($validate->fails()) {
+            return redirect()->back()->with('error',$validate->errors()->first());
+        }
 
         // parent_id cant be the same as id
         if($request->parent_id == $id){
@@ -125,5 +142,36 @@ class ItemCategoryController extends Controller
     public function new_category_form_html(){
         $item_categories = ItemCategory::whereNull('parent_id')->get();
         return view('admin.item_category._new_category_form', compact('item_categories'));
+    }
+
+    public function get_item_category(){
+        $item = ItemCategory::query();
+
+        //except_post_id
+        if (request()->has('except_post_id')){
+            $except_post_id = request()->get('except_post_id');
+            $item = $item->where('id','!=',$except_post_id);
+        }
+
+
+        // check based on slug
+        if (request()->has('slug')) {
+            $slug = request()->get('slug');
+            $item = $item->where('slug', $slug);
+        }
+
+        // check based on id
+        if (request()->has('id')) {
+            $id = request()->get('id');
+            $item = $item->where('id', '!=', $id);
+        }
+
+        $item = $item->first();
+
+        if ($item) {
+            return response()->json(['exists' => true,'item' => $item,'msg' => __('admin/item.msg.slug_exists')]);
+        }
+
+        return response()->json(['exists' => false,'msg' => __('admin/item.msg.slug_not_exists')]);
     }
 }
