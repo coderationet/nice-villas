@@ -22,8 +22,8 @@ class CategoryController extends Controller
         $request_attributes = [];
 
         foreach (request()->all() as $key => $value) {
-            if(str_contains($key,'attribute_')){
-                $key = explode('attribute_',$key)[1];
+            if (str_contains($key, 'attribute_')) {
+                $key = explode('attribute_', $key)[1];
                 if (!in_array($key, $request_attributes)) {
                     $request_attributes[] = $key;
                 }
@@ -39,7 +39,7 @@ class CategoryController extends Controller
         $attributes = $attributes->keyBy('slug');
 
         foreach (request()->all() as $key => $value) {
-            if(str_contains($key,'attribute_') && isset($attributes[explode('attribute_',$key)[1]])){
+            if (str_contains($key, 'attribute_') && isset($attributes[explode('attribute_', $key)[1]])) {
                 $items = $items->whereHas('attributeValues', function ($query) use ($value) {
                     $query->whereIn('attribute_value_id', $value);
                 });
@@ -60,5 +60,42 @@ class CategoryController extends Controller
 
 
         return view('front.category.show', compact('category', 'items'));
+    }
+
+    function remove_filter_from_url()
+    {
+
+
+        $parameters = request()->get('request_params');
+        $attribute_value_id = request()->get('attribute_value_id');
+
+        foreach ($parameters as $key => $parameter) {
+            if (str_contains($key, 'attribute_')) {
+                foreach ($parameter as $value_key =>  $value_id) {
+                    if ($value_id == $attribute_value_id) {
+                        unset($parameters[$key][$value_key]);
+                    }
+                }
+            }
+        }
+
+        $url = route('front.category.show',request()->get('category_slug')) . '?';
+
+        foreach ($parameters as $key => $parameter) {
+            if (str_contains($key, 'attribute_')) {
+                foreach ($parameter as $value_key =>  $value_id) {
+                    $url .= $key . '[]=' . $value_id . '&';
+                }
+            } else {
+                $url .= $key . '=' . $parameter . '&';
+            }
+        }
+
+        $url = rtrim($url, '&');
+
+        return response()->json([
+            'url' => $url,
+            'status' => 'success'
+        ]);
     }
 }

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Contact;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class PageController extends Controller
 {
@@ -14,6 +16,37 @@ class PageController extends Controller
     }
 
     public function contact(){
-        return view('front.page.contact');
+        $page = [
+            "name" => "Contact",
+            "slug" => "contact",
+            "id" => "contact",
+        ];
+        // convert to object
+        $page = json_encode($page);
+        $page = json_decode($page);
+        return view('front.page.contact', compact('page'));
+    }
+
+    public function contact_post(Request $request){
+        // name, message, email required
+        $validate = Validator::make($request->all(), [
+            'name' => 'required',
+            'message' => 'required',
+            'email' => 'required|email',
+        ]);
+
+        if ($validate->fails()) {
+            return redirect()->back()->with('error',$validate->errors()->first())->withInput();
+        }
+
+        // save to database
+        $contact = Contact::create([
+            'name' => $request->name,
+            'message' => $request->message,
+            'email' => $request->email,
+        ]);
+
+        // redirect back with success message
+        return redirect()->back()->with('success',__('front/contact.msg.message_send_successfully'));
     }
 }

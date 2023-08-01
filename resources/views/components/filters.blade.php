@@ -27,9 +27,9 @@
                     <div class="accordion-body price-range">
                         <div class="show-price-range">
                             <input class="form-control" type="text" id="min_price" name="min_price"
-                                   value="{{$min_price}}" readonly>
+                                   value="{{request()->has('min_price') ? request()->get('min_price') : $min_price}}" readonly>
                             <input class="form-control" type="text" id="max_price" name="max_price"
-                                   value="{{$max_price}}" readonly>
+                                   value="{{request()->has('max_price') ? request()->get('max_price') : $max_price}}" readonly>
                         </div>
                         <div id="price-range" class="slider"></div>
                     </div>

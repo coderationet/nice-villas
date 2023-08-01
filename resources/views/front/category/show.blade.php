@@ -14,9 +14,10 @@
     <div class="container category-page page">
         <div class="row">
             <div class="col-md-3 mb-3">
-                <x-filters :items="$items" />
+                <x-filters :items="$items"/>
             </div>
             <div class="col-md-9">
+                <x-active-filters  :category="$category"/>
                 <div class="bg-white rounded p-3 border">
                     @foreach($items as $item)
                         <div class="item">
@@ -70,7 +71,7 @@
                 range: true,
                 min: 0,
                 max: 100000,
-                values: [0, 100000],
+                values: [{{request()->get('min_price') ?? 0}}, {{request()->get('max_price') ?? 100000}}],
                 slide: function (event, ui) {
                     $('#min_price').val(ui.values[0]);
                     $('#max_price').val(ui.values[1]);

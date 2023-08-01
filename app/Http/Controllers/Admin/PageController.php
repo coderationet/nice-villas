@@ -31,9 +31,9 @@ class PageController extends Controller
      */
     public function store(Request $request)
     {
-        $validate = Validator::make([
-            'name' => 'required|string|max:255',
-            'slug' => 'required|string|unique:pages,slug',
+        $validate = Validator::make($request->all(), [
+                ['name' => 'required|string|max:255'],
+                ['slug' => 'required|string|unique:pages,slug']
         ]);
 
         if ($validate->fails()) {
@@ -54,7 +54,8 @@ class PageController extends Controller
         //
     }
 
-    public function get_page(){
+    public function get_page()
+    {
         $item = Page::query();
 
         //except_post_id
@@ -107,7 +108,7 @@ class PageController extends Controller
         $page = Page::findOrFail($id);
 
         if ($page->is_protected) {
-            $page->update($request->except('_token', 'is_protected','page_type'));
+            $page->update($request->except('_token', 'is_protected', 'page_type'));
             return redirect()->route('admin.pages.index')->with('success', 'Page updated successfully');
         }
 

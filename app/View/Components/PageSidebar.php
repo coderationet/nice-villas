@@ -22,7 +22,9 @@ class PageSidebar extends Component
      */
     public function render(): View|Closure|string
     {
-        $pages = Page::all();
+        $pages = cache()->remember('all_pages', 60, function () {
+            return Page::all();
+        });
         $page = $this->page;
         return view('components.page-sidebar', compact('pages', 'page'));
     }
