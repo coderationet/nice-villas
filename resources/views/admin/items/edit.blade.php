@@ -35,7 +35,7 @@
                                             <h3 class="card-title">{{__('admin/general.add_new')}}</h3>
                                         </div>
 
-                                        <div class="card-body">
+                                        <div class="card-body item-form">
                                             <div class="form-group">
                                                 <label for="title">{{__('admin/general.title')}}</label>
                                                 <input type="text" class="form-control" id="title"
@@ -179,16 +179,16 @@
     @include('admin.js.summernote-turkish')
     <script type="module">
 
-        $('#title').change(function (){
+        $('.item-form #title').change(function (){
             // if slug is empty then set slug value
             // doesnt allow space and special chars except -
-            if($('#slug').val() == ''){
-                $('#slug').val($(this).val().replace(/[^a-z0-9\s]/gi, '-').replace(/[_\s]/g, '-').toLowerCase());
+            if($('.item-form #slug').val() == ''){
+                $('.item-form #slug').val($(this).val().replace(/[^a-z0-9\s]/gi, '-').replace(/[_\s]/g, '-').toLowerCase());
             }
 
         });
 
-        $('#slug').keyup(function (e) {
+        $('.item-form #slug').keyup(function (e) {
 
             // doesnt allow space and special chars except -
             $(this).val($(this).val().replace(/[^a-z0-9\s]/gi, '-').replace(/[_\s]/g, '-').toLowerCase());
@@ -203,15 +203,15 @@
 
                 if(data.exists === true){
 
-                    $('.alert-success').addClass('d-none');
-                    $('.alert-danger').removeClass('d-none');
-                    $('.alert-danger').html(data.msg);
+                    $('.item-form .alert-success').addClass('d-none');
+                    $('.item-form .alert-danger').removeClass('d-none');
+                    $('.item-form .alert-danger').html(data.msg);
 
                 }else {
 
-                    $('.alert-success').removeClass('d-none');
-                    $('.alert-danger').addClass('d-none');
-                    $('.alert-success').html(data.msg);
+                    $('.item-form .alert-success').removeClass('d-none');
+                    $('.item-form .alert-danger').addClass('d-none');
+                    $('.item-form .alert-success').html(data.msg);
 
                 }
             });

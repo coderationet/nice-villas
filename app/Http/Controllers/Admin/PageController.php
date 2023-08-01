@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 use App\Models\Page;
 
@@ -30,9 +31,15 @@ class PageController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $validate = Validator::make([
             'name' => 'required|string|max:255',
+            'slug' => 'required|string|unique:pages,slug',
         ]);
+
+        if ($validate->fails()) {
+            return redirect()->back()->with('error', $validate->errors()->first());
+        }
+
         $data = $request->except('_token');
         $data['is_protected'] = false;
         Page::create($data);

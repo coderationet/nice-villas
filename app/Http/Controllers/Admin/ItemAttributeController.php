@@ -37,6 +37,7 @@ class ItemAttributeController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             "type" => "required|string|in:select,radio,checkbox,multiselect",
+            "slug" => "required|string|max:255|unique:attributes,slug",
         ]);
 
         if ($validator->fails()) {

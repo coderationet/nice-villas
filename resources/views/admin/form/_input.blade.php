@@ -1,6 +1,6 @@
 <div class="form-group">
     <label for="{{$input_name}}">{{$title}}</label>
-    <input type="text" class="form-control" id="{{$input_name}}"
+    <input type="text" class="form-control {{$input_name}}" id="{{$input_name}}"
            name="{{$input_name}}"
            @isset($item)
                value="{{$item->$input_name}}"

@@ -102,17 +102,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="form-group">
-                        <label for="value">{{__('admin/general.name')}}</label>
-                        <input type="text" id="value" name="name" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <labal for="type">{{__('admin/general.type')}}</labal>
-                        <select name="type" id="type" class="form-control">
-                            <option value="multiselect">{{__('admin/general.multiselect')}}</option>
-                            <option value="select">{{__('admin/general.select')}}</option>
-                        </select>
-                    </div>
+                    @include('admin.item_attribute._form')
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary"
@@ -193,10 +183,11 @@
 
         $('.add-new-attribute-action-button').click(function () {
             $.post("{{route('admin.item-attributes.store')}}", {
-                name: $(this).parent().parent().find('#value').val(),
+                name: $(this).parent().parent().find('#name').val(),
                 _token: $('meta[name="csrf-token"]').attr('content'),
                 response_type: "json",
-                type: $('#add-new-attribute-modal #type').val()
+                type: $(this).parent().parent().find('#type').val(),
+                slug : $(this).parent().parent().find('#slug').val(),
             }, function (response) {
 
                 alert(response.msg);
