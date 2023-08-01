@@ -20,29 +20,100 @@ class ItemSeeder extends Seeder
     {
 
         // Item attributes
-        $status_attribute = Attribute::create(['name' => 'Status','type' => 'select']);
-        $bedroom_attribute = Attribute::create(['name' => 'Bedroom','type' => 'select']);
-        $m2_attribute = Attribute::create(['name' => 'm2','type' => 'select']);
-        $libing_room_attribute = Attribute::create(['name' => 'Living Room','type' => 'select']);
-        $en_suite_bathroom_attribute = Attribute::create(['name' => 'En-suit Bathroom','type' => 'select']);
-        $pool_attribute = Attribute::create(['name' => 'Pool','type' => 'select']);
-        $poolm2_attribute = Attribute::create(['name' => 'Pool m2','type' => 'select']);
-        $garden_attribute = Attribute::create(['name' => 'Garden','type' => 'select']);
-        $garden_m2_attribute = Attribute::create(['name' => 'Garden m2','type' => 'select']);
-        $Furnished_attribute = Attribute::create(['name' => 'Furnished','type' => 'select']);
-        $number_of_floor_attribute = Attribute::create(['name' => 'Number of Floor','type' => 'select']);
-        $in_the_complex_attribute = Attribute::create(['name' => 'In the Complex','type' => 'select']);
-        $heating_attribute = Attribute::create(['name' => 'Heating','type' => 'select']);
-        $villa_type = Attribute::create(['name' => 'Villa Type','type' => 'select']);
+        $status_attribute = Attribute::create(['name' => 'Status', 'type' => 'select', 'slug' => 'status']);
+        $status_attribute->values()->create(['value' => 'New']);
+        $status_attribute->values()->create(['value' => '2nd Hand']);
 
-        $views_attribute = Attribute::create(['name' => 'Views','type' => 'multiselect']);
-        $distances_attribute = Attribute::create(['name' => 'Distances','type' => 'multiselect']);
-        $features_attribute = Attribute::create(['name' => 'Features','type' => 'multiselect']);
+        $bedroom_attribute = Attribute::create(['name' => 'Bedroom', 'type' => 'select', 'slug' => 'bedroom']);
+        $bedroom_attribute->values()->create(['value' => '1 Bedroom']);
+        $bedroom_attribute->values()->create(['value' => '2 Bedrooms']);
+        $bedroom_attribute->values()->create(['value' => '3 Bedrooms']);
+        $bedroom_attribute->values()->create(['value' => '4 Bedrooms']);
+
+        $m2_attribute = Attribute::create(['name' => 'm2', 'type' => 'select', 'slug' => 'm2']);
+        $m2_attribute->values()->create(['value' => '0-50 m2']);
+        $m2_attribute->values()->create(['value' => '50-100 m2']);
+        $m2_attribute->values()->create(['value' => '100-150 m2']);
+        $m2_attribute->values()->create(['value' => '150-200 m2']);
+
+        $libing_room_attribute = Attribute::create(['name' => 'Living Room', 'type' => 'select', 'slug' => 'living-room']);
+        $libing_room_attribute->values()->create(['value' => '1 Living Room']);
+        $libing_room_attribute->values()->create(['value' => '2 Living Rooms']);
+        $libing_room_attribute->values()->create(['value' => '3 Living Rooms']);
+        $libing_room_attribute->values()->create(['value' => '4 Living Rooms']);
+
+        $en_suite_bathroom_attribute = Attribute::create(['name' => 'En-suit Bathroom', 'type' => 'select', 'slug' => 'en-suit-bathroom']);
+        $en_suite_bathroom_attribute->values()->create(['value' => '1 En-suit Bathroom']);
+        $en_suite_bathroom_attribute->values()->create(['value' => '2 En-suit Bathrooms']);
+        $en_suite_bathroom_attribute->values()->create(['value' => '3 En-suit Bathrooms']);
+        $en_suite_bathroom_attribute->values()->create(['value' => '4 En-suit Bathrooms']);
+
+        $pool_attribute = Attribute::create(['name' => 'Pool', 'type' => 'select', 'slug' => 'pool']);
+        $pool_attribute->values()->create(['value' => 'Private Pool']);
+        $pool_attribute->values()->create(['value' => 'Communal Pool']);
+        $pool_attribute->values()->create(['value' => 'No Pool']);
+
+        $poolm2_attribute = Attribute::create(['name' => 'Pool m2', 'type' => 'select', 'slug' => 'pool-m2']);
+        $poolm2_attribute->values()->create(['value' => '0-50 m2']);
+        $poolm2_attribute->values()->create(['value' => '50-100 m2']);
+        $poolm2_attribute->values()->create(['value' => '100-150 m2']);
+
+        $garden_attribute = Attribute::create(['name' => 'Garden', 'type' => 'select', 'slug' => 'garden']);
+        $garden_attribute->values()->create(['value' => 'Private Garden']);
+        $garden_attribute->values()->create(['value' => 'Communal Garden']);
+        $garden_attribute->values()->create(['value' => 'No Garden']);
+
+        $garden_m2_attribute = Attribute::create(['name' => 'Garden m2', 'type' => 'select', 'slug' => 'garden-m2']);
+        $garden_m2_attribute->values()->create(['value' => '0-50 m2']);
+        $garden_m2_attribute->values()->create(['value' => '50-100 m2']);
+        $garden_m2_attribute->values()->create(['value' => '100-150 m2']);
+
+        $Furnished_attribute = Attribute::create(['name' => 'Furnished', 'type' => 'select', 'slug' => 'furnished']);
+        $Furnished_attribute->values()->create(['value' => 'Fully Furnished']);
+        $Furnished_attribute->values()->create(['value' => 'Partially Furnished']);
+        $Furnished_attribute->values()->create(['value' => 'Unfurnished']);
+
+        $number_of_floor_attribute = Attribute::create(['name' => 'Number of Floor', 'type' => 'select', 'slug' => 'number-of-floor']);
+        $number_of_floor_attribute->values()->create(['value' => '1 Floor']);
+        $number_of_floor_attribute->values()->create(['value' => '2 Floors']);
+        $number_of_floor_attribute->values()->create(['value' => '3 Floors']);
+        $number_of_floor_attribute->values()->create(['value' => '4 Floors']);
+
+        $in_the_complex_attribute = Attribute::create(['name' => 'In the Complex', 'type' => 'select', 'slug' => 'in-the-complex']);
+        $in_the_complex_attribute->values()->create(['value' => 'Yes']);
+        $in_the_complex_attribute->values()->create(['value' => 'No']);
+
+        $heating_attribute = Attribute::create(['name' => 'Heating', 'type' => 'select', 'slug' => 'heating']);
+        $heating_attribute->values()->create(['value' => 'Air Conditioning']);
+        $heating_attribute->values()->create(['value' => 'Central Heating']);
+        $heating_attribute->values()->create(['value' => 'Fire Place']);
+        $heating_attribute->values()->create(['value' => 'Solar Energy']);
+
+        $villa_type = Attribute::create(['name' => 'Villa Type', 'type' => 'select', 'slug' => 'villa-type']);
+        $villa_type->values()->create(['value' => 'Detached Villa']);
+        $villa_type->values()->create(['value' => 'Semi Detached Villa']);
+        $villa_type->values()->create(['value' => 'Twin Villa']);
+        $villa_type->values()->create(['value' => 'Triplex Villa']);
+
+
+        $views_attribute = Attribute::create(['name' => 'Views', 'type' => 'multiselect', 'slug' => 'views']);
+        // sea, mountain, city, forest, lake, river, pool, garden, street, valley, castle, island, canyon, golf, ski
+        $views_attribute->values()->create(['value' => 'Sea']);
+        $views_attribute->values()->create(['value' => 'Mountain']);
+        $views_attribute->values()->create(['value' => 'City']);
+        $views_attribute->values()->create(['value' => 'Forest']);
+        $views_attribute->values()->create(['value' => 'Lake']);
+        $views_attribute->values()->create(['value' => 'River']);
+
+//        $distances_attribute = Attribute::create(['name' => 'Distances', 'type' => 'multiselect', 'slug' => 'distances']);
+
+
+//        $features_attribute = Attribute::create(['name' => 'Features', 'type' => 'multiselect', 'slug' => 'features']);
 
         // categories For Sale, For Rent, For Holiday
-        $for_sale_category = ItemCategory::create(['name' => 'For Sale Villas','slug' => 'for-sale']);
-        $for_rent_category = ItemCategory::create(['name' => 'For Rent Villas','slug' => 'for-rent']);
-        $for_holiday_category = ItemCategory::create(['name' => 'For Holiday Villas','slug' => 'for-holiday']);
+        $for_sale_category = ItemCategory::create(['name' => 'For Sale Villas', 'slug' => 'for-sale']);
+        $for_rent_category = ItemCategory::create(['name' => 'For Rent Villas', 'slug' => 'for-rent']);
+        $for_holiday_category = ItemCategory::create(['name' => 'For Holiday Villas', 'slug' => 'for-holiday']);
 
 
         $thumbnail = Media::create([

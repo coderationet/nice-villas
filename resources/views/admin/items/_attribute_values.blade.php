@@ -6,7 +6,7 @@
     </div>
     <div class="card-body">
         <div class="form-group">
-            @if(config('website.strict_attributes') === false)
+{{--            @if(config('website.strict_attributes') === false)--}}
                 <div class="row mb-3">
                     <div class="col-md-9">
                         <select name="attribute_id" id="attribute_id"
@@ -32,7 +32,7 @@
                         </div>
                     </div>
                 </div>
-            @endif
+{{--            @endif--}}
             <div class="row">
                 <table class="table table-bordered">
                     <thead>

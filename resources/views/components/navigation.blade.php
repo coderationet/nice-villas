@@ -8,24 +8,24 @@
             <ul class="navbar-nav flex gap-2 ms-lg-3">
 
                 <li class="nav-item py-lg-3">
-                    <a class="nav-link active " aria-current="page" href="#">{{__('front/general.home')}}</a>
+                    <a class="nav-link active " aria-current="page" href="{{route('home')}}">{{__('front/general.home')}}</a>
                 </li>
                 <li class="nav-item dropdown py-lg-3">
                     <a class="nav-link dropdown-toggle text-black  " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         {{__('front/menu.corporate')}}
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
+                        <li><a class="dropdown-item" href="{{route('front.page.show',$about_page->slug)}}">{{$about_page->name}}</a></li>
                     </ul>
-                </li>
-                <li class="nav-item py-lg-3">
-                    <a class="nav-link active  " aria-current="page" href="#">{{__('front/menu.contact')}}</a>
                 </li>
                 @foreach($categories as $category)
                     <li class="nav-item py-lg-3">
                         <a class="nav-link active border rounded nav-category-link" aria-current="page" href="{{route('front.category.show',$category->slug)}}">{{$category->name}}</a>
                     </li>
                 @endforeach
+                <li class="nav-item py-lg-3">
+                    <a class="nav-link active " aria-current="page" href="{{route('front.page.contact')}}">{{__('front/menu.contact')}}</a>
+                </li>
             </ul>
             <a href="#" class="btn btn-outline-secondary ms-auto">
                 <i class="fas fa-plus"></i> {{ __('front/menu.add_new_property')}}

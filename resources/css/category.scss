@@ -1,3 +1,5 @@
+
+
 .category-page{
     .accordion-item .accordion-button.collapsed,
     .accordion-item .accordion-button{
@@ -5,5 +7,22 @@
         background: #fff;
         box-shadow: none;
         -webkit-box-shadow: none;
+    }
+    .price-range{
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        justify-content: center;
+        align-items: center;
+        #price-range{
+            width: calc(100% - 20px);
+        }
+         #priceRange{
+             display: none;
+         }
+        .show-price-range{
+            display: flex;
+            gap: 20px;
+        }
     }
 }

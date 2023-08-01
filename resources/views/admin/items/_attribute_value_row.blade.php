@@ -28,13 +28,13 @@
             <i class="fas fa-plus"></i> {{__('admin/attributes.add_new_value')}}
         </button>
 
-        @if(config('website.strict_attributes') === false)
+{{--        @if(config('website.strict_attributes') === false)--}}
             <button type="button"
                     class="btn btn-danger btn-xs delete-attribute"
                     data-attribute-id="{{$item_attribute['id']}}">
                 <i class="fas fa-trash"></i> {{__('admin/general.delete')}}
             </button>
-        @endif
+{{--        @endif--}}
     </td>
 </tr>
 

@@ -16,3 +16,9 @@ body{
 .fs-14{
     font-size: 14px;
 }
+.page{
+    min-height: calc(100vh - 280px);
+}
+.text-justify{
+    text-align: justify;
+}

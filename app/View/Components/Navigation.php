@@ -3,6 +3,7 @@
 namespace App\View\Components;
 
 use App\Models\ItemCategory;
+use App\Models\Page;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
@@ -26,6 +27,10 @@ class Navigation extends Component
             return ItemCategory::orderBy('name', 'asc')->get();
         });
 
-        return view('components.navigation', compact('categories'));
+        $about_page = cache()->remember('about_page', 60, function () {
+            return Page::where('slug', 'about')->first();
+        });
+
+        return view('components.navigation', compact('categories','about_page'));
     }
 }

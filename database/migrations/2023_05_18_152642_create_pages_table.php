@@ -15,8 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->longText('content');
-            $table->boolean('is_protected')->default(false)->nullable();
-            $table->string('page_type',50)->default('page')->nullable();
+            $table->string('slug')->unique();
             $table->timestamps();
         });
     }

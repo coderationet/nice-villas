@@ -23,11 +23,11 @@
                         <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title">{{__("admin/attributes.all_attributes")}}</h3>
-                                @if(config('website.strict_attributes') === false)
+{{--                                @if(config('website.strict_attributes') === false)--}}
                                     <a href="{{route('admin.item-attributes.create')}}"
                                        class="btn btn-primary btn-xs float-right"><i
                                             class="fas fa-plus"></i> {{__("admin/general.add_new")}}</a>
-                                @endif
+{{--                                @endif--}}
 
                             </div>
                             <div class="card-body">
@@ -56,7 +56,7 @@
                                                     <i class="fas fa-edit"></i>
                                                     {{__("admin/general.edit")}}
                                                 </a>
-                                                @if(config('website.strict_attributes') === false)
+{{--                                                @if(config('website.strict_attributes') === false)--}}
                                                     <form method="post"
                                                           action="{{route('admin.item-attributes.destroy',$category->id)}}">
                                                         @csrf
@@ -68,7 +68,7 @@
                                                             {{__("admin/general.delete")}}
                                                         </button>
                                                     </form>
-                                                @endif
+{{--                                                @endif--}}
                                             </td>
                                         </tr>
                                     @endforeach

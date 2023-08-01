@@ -24,10 +24,6 @@ class ItemAttributeValueController extends Controller
     public function create()
     {
 
-        if(config('item.strict_attributes')){
-            return redirect()->route('admin.item-attributes.index')->with('error', __('admin/attributes.msg.cannot_create_new_value'));
-        }
-
         $attribute_id = request()->get('attribute_id');
 
         return view('admin.item_attribute_value.edit', compact('attribute_id'));
@@ -123,11 +119,6 @@ class ItemAttributeValueController extends Controller
     {
         $attribute_value = AttributeValue::findOrFail($id);
         $attribute_value->delete();
-
-        // check if strict attributes is enabled
-        if(config('item.strict_attributes')){
-            return redirect()->route('admin.item-attributes.edit', $attribute_value->attribute_id)->with('error', __('admin/attributes.msg.cannot_delete_value'));
-        }
 
         return redirect()->back()->with('success', 'Attribute value deleted successfully');
     }

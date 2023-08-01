@@ -1,5 +1,7 @@
 @import "bootstrap/dist/css/bootstrap.min.css";
 @import "fontawesome-free/css/all.min.css";
+@import "jquery-ui/dist/themes/base/jquery-ui.min.css";
+@import "jquery-ui/dist/themes/base/theme.css";
 @import "home.scss";
 @import "menu.scss";
 @import "general.scss";
