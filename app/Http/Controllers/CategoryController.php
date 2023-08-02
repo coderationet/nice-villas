@@ -56,10 +56,13 @@ class CategoryController extends Controller
             $items = $items->where('price', '<=', request()->max_price);
         }
 
-        $items = $items->simplePaginate(12);
+        $item_count = $items->count();
 
 
-        return view('front.category.show', compact('category', 'items'));
+        $items = $items->paginate(12)->withQueryString();
+
+
+        return view('front.category.show', compact('category', 'items','item_count'));
     }
 
     function remove_filter_from_url()
@@ -70,6 +73,10 @@ class CategoryController extends Controller
         $attribute_value_id = request()->get('attribute_value_id');
 
         foreach ($parameters as $key => $parameter) {
+            if ($key == 'page'){
+                unset($parameters[$key]);
+                continue;
+            }
             if (str_contains($key, 'attribute_')) {
                 foreach ($parameter as $value_key =>  $value_id) {
                     if ($value_id == $attribute_value_id) {

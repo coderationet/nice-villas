@@ -24,6 +24,13 @@ class ItemSeeder extends Seeder
         $status_attribute->values()->create(['value' => 'New']);
         $status_attribute->values()->create(['value' => '2nd Hand']);
 
+        $location_attribute = Attribute::create(['name' => 'Location', 'type' => 'select', 'slug' => 'location']);
+        $location_1 = $location_attribute->values()->create(['value' => 'Alanya, Antalya']);
+        $location_2 = $location_attribute->values()->create(['value' => 'Dalyan, Muğla']);
+        $location_3 = $location_attribute->values()->create(['value' => 'Roma, Italy']);
+        $location_4 = $location_attribute->values()->create(['value' => 'London, UK']);
+
+
         $bedroom_attribute = Attribute::create(['name' => 'Bedroom', 'type' => 'select', 'slug' => 'bedroom']);
         $bedroom_attribute->values()->create(['value' => '1 Bedroom']);
         $bedroom_attribute->values()->create(['value' => '2 Bedrooms']);
@@ -121,17 +128,33 @@ class ItemSeeder extends Seeder
             'type' => 'image',
         ]);
 
-        // create item
-        $item = Item::create([
-            'title' => 'Villa For Sale',
-            'slug' => 'villa-for-sale',
-            'description' => 'Villa For Sale',
-            'price' => 100000,
-            'thumbnail_id' => $thumbnail->id,
-        ]);
+        for ($i=1; $i<100;$i++){
+            $category_id = rand(1,3);
+            // create item
+            $item = Item::create([
+                'title' => 'Villa '.$i,
+                'slug' => 'villa-'.$i,
+                'description' => 'Villa '.$i.' description<br>'
+                . "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla euismod, nisl eget ultricies aliquam, "
+                . "nunc nisl ultricies diam, eu tincidunt nisl nisl eget nunc. Donec euismod, nisl eget ultricies aliquam, "
+                . "nunc nisl ultricies diam, eu tincidunt nisl nisl eget nunc. Donec euismod, nisl eget ultricies aliquam, ",
+                'price' => rand(1000, 100000),
+                'thumbnail_id' => $thumbnail->id,
+            ]);
 
-        // create item category
-        $item->categories()->attach($for_sale_category->id);
+            $item->categories()->attach($category_id);
+
+            for ($attribute_id = 1;$attribute_id <=16;$attribute_id++){
+
+                $values = AttributeValue::where('attribute_id', $attribute_id)->get();
+                $value = $values[rand(0, count($values)-1)];
+
+                $item->attributeValues()->attach($value->id);
+
+            }
+
+
+        }
 
     }
 }

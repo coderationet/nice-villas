@@ -12,10 +12,10 @@ class Filters extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct($items)
-    {
-        $this->items = $items;
-    }
+    public function __construct(
+        public $items,
+    )
+    {}
 
     /**
      * Get the view / contents that represent the component.
@@ -52,7 +52,6 @@ class Filters extends Component
             return $attribute;
 
         });
-
 
         return view('components.filters', [
             'items' => $items,

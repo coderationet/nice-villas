@@ -22,3 +22,15 @@ body{
 .text-justify{
     text-align: justify;
 }
+
+.pagination nav{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.w-70{
+    width: 70%;
+}
+

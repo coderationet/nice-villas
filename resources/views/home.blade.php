@@ -30,6 +30,9 @@
 
             </div>
         </div>
+        <div class="container">
+            <x-search-form />
+        </div>
         @include('front.partials.home-categories', ['category' => $categories[0], 'items' => $for_sale_items])
         @include('front.partials.home-categories', ['category' => $categories[1], 'items' => $for_rent_items])
         @include('front.partials.home-categories', ['category' => $categories[2], 'items' => $for_holiday_items])

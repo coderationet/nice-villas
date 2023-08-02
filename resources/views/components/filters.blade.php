@@ -11,7 +11,7 @@
                 </h2>
                 <div id="panelsStayOpen-collapseCount" class="accordion-collapse collapse show">
                     <div class="accordion-body">
-                        {{$items->count()}} {{__('front/category.results_found')}}
+                        {{$items->total()}} {{__('front/category.results_found')}}
                     </div>
                 </div>
             </div>

@@ -5,7 +5,7 @@ namespace App\Helpers;
 use App\Models\Option as WOption;
 
 class Option{
-    public static function get($key,$cache = true,$default = null,$cacheTime = 60){
+    public static function get($key,$cache = true,$default = null,$cacheTime = 60 * 24 * 60){
         if ($cache){
             $option = cache()->remember('option_'.$key, $cacheTime, function () use ($key) {
                 return WOption::where('key',$key)->first();
@@ -34,4 +34,5 @@ class Option{
         cache()->forget('option_'.$key);
         return true;
     }
+
 }

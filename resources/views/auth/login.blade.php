@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title',__('front/login.login'))
 @section('content')
 
     <div class="container page">
@@ -46,12 +47,12 @@
                     </div>
 
                     <div class="d-flex flex-column justify-content-center align-items-center mt-4">
-                        @if (Route::has('password.request'))
-                            <a class="underline text-sm  text-center text-decoration-none text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                               href="{{ route('password.request') }}">
-                                {{ __('front/login.forgot_password') }}
-                            </a>
-                        @endif
+{{--                        @if (Route::has('password.request'))--}}
+{{--                            <a class="underline text-sm  text-center text-decoration-none text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"--}}
+{{--                               href="{{ route('password.request') }}">--}}
+{{--                                {{ __('front/login.forgot_password') }}--}}
+{{--                            </a>--}}
+{{--                        @endif--}}
 
                         <x-primary-button class="ml-3 mt-3 btn btn-primary">
                             {{ __('front/login.login') }}

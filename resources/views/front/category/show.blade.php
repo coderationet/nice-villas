@@ -14,13 +14,13 @@
     <div class="container category-page page">
         <div class="row">
             <div class="col-md-3 mb-3">
-                <x-filters :items="$items"/>
+                <x-filters :items="$items"  />
             </div>
             <div class="col-md-9">
                 <x-active-filters  :category="$category"/>
-                <div class="bg-white rounded p-3 border">
+                <div class="">
                     @foreach($items as $item)
-                        <div class="item">
+                        <div class="item bg-white rounded p-3 border mb-3">
                             <div class="row">
                                 <div class="col-md-4">
                                     <a href="{{route('front.item.show',$item->slug)}}">
@@ -51,14 +51,16 @@
                                             </p>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        {{$items->links()}}
-                                    </div>
                                 </div>
                             </div>
                         </div>
                     @endforeach
                 </div>
+                @if($items->hasPages())
+                    <div class="bg-white rounded p-3 border text-center pb-0 pagination">
+                        {{$items->links()}}
+                    </div>
+                @endif
             </div>
         </div>
     </div>

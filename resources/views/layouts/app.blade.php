@@ -8,7 +8,7 @@
         @hasSection('title')
             @yield('title') - {{ \App\Helpers\Option::get('site_name') }}
         @else
-            {{ config('app.name', \App\Helpers\Option::get('site_name')) }}
+            {{ \App\Helpers\Option::get('site_name') }}
         @endif
     </title>
     <!-- Fonts -->
@@ -17,7 +17,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.scss', 'resources/js/app.js'])
     @stack('extra-head')
 
 </head>
@@ -26,7 +26,7 @@
 @yield('content')
 <footer class="mt-5 bg-white w-100 p-4">
     <div class="container">
-        Merhaba
+        {{ \App\Helpers\Option::get('footer_text')}}
     </div>
 </footer>
 @stack('extra-footer')
