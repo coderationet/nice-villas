@@ -10,5 +10,7 @@ return [
     'details' => 'Details',
     'price' => 'Price',
     'currency_symbol' => '€',
-    'currency' => 'EUR'
+    'currency' => 'EUR',
+    'show_more' => 'Show more',
+    'show_less' => 'Show less',
 ];
