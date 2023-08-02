@@ -31,8 +31,8 @@ class PageController extends Controller
         // name, message, email required
         $validate = Validator::make($request->all(), [
             'name' => 'required',
-            'message' => 'required',
             'email' => 'required|email',
+            'message' => 'required',
         ]);
 
         if ($validate->fails()) {

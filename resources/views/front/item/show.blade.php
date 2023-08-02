@@ -73,7 +73,7 @@
             </div>
             <div class="col-md-3">
                 @include('front.item.contact-informations')
-                @include('front.item.appointment-form')
+                @include('front.item.appointment-form',['item' => $item])
             </div>
         </div>
     </div>
