@@ -27,7 +27,7 @@
                     <a class="nav-link active " aria-current="page" href="{{route('front.page.contact')}}">{{__('front/menu.contact')}}</a>
                 </li>
             </ul>
-            <a href="#" class="btn btn-outline-secondary ms-auto">
+            <a href="{{route('front.page.contact')}}" class="btn btn-outline-secondary ms-auto">
                 <i class="fas fa-plus"></i> {{ __('front/menu.add_new_property')}}
             </a>
         </div>

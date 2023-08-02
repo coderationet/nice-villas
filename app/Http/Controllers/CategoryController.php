@@ -56,10 +56,18 @@ class CategoryController extends Controller
             $items = $items->where('price', '<=', request()->max_price);
         }
 
+
+
         $item_count = $items->count();
 
 
+        $items = $items->with(['attributeValues' => function ($query) {
+            $query->whereIn('attribute_id', [2,17]);
+        }]);
+
+
         $items = $items->paginate(12)->withQueryString();
+
 
 
         return view('front.category.show', compact('category', 'items','item_count'));

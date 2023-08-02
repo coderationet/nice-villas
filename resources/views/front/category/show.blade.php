@@ -35,7 +35,7 @@
                                                class="text-decoration-none text-black">
                                                 <h2>{{$item->title}}</h2>
                                             </a>
-                                            <p class="text-gray fs-12">Mugla / Ordaca / Dalyan</p>
+                                            <p class="text-gray fs-12">{{$item->attributeValues[0]->value}}</p>
                                             <div class="d-flex gap-1">
                                                 @foreach($item->categories as $category)
                                                     <span class="badge bg-primary">{{$category->name}}</span>
@@ -44,7 +44,7 @@
                                         </div>
                                         <div class="col-md-3">
                                             <p class="peoppe">
-                                                <i class="fas fa-user"></i> 2 Kişilik
+                                                <i class="fas fa-user"></i> {{$item->attributeValues[1]->value}}
                                             </p>
                                             <p class="price">
                                                 {{number_format($item->price,2,',','.')}} ₺

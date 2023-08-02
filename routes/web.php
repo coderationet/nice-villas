@@ -18,6 +18,9 @@ Route::group(['as' => 'front.'], function () {
     Route::post('search', [Controllers\SearchController::class, 'index'])->name('search.index');
 });
 
+
+
+
 require_once __DIR__ . '/custom/admin_routes.php';
 
 require __DIR__ . '/auth.php';

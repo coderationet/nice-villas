@@ -112,10 +112,12 @@ class ItemSeeder extends Seeder
         $views_attribute->values()->create(['value' => 'Lake']);
         $views_attribute->values()->create(['value' => 'River']);
 
-//        $distances_attribute = Attribute::create(['name' => 'Distances', 'type' => 'multiselect', 'slug' => 'distances']);
-
-
-//        $features_attribute = Attribute::create(['name' => 'Features', 'type' => 'multiselect', 'slug' => 'features']);
+        // people attribute
+        $people_attribute = Attribute::create(['name' => 'People', 'type' => 'select', 'slug' => 'people']);
+        $people_attribute->values()->create(['value' => '1-2 People']);
+        $people_attribute->values()->create(['value' => '2-4 People']);
+        $people_attribute->values()->create(['value' => '4-6 People']);
+        $people_attribute->values()->create(['value' => '6-8 People']);
 
         // categories For Sale, For Rent, For Holiday
         $for_sale_category = ItemCategory::create(['name' => 'For Sale Villas', 'slug' => 'for-sale']);
@@ -144,7 +146,7 @@ class ItemSeeder extends Seeder
 
             $item->categories()->attach($category_id);
 
-            for ($attribute_id = 1;$attribute_id <=16;$attribute_id++){
+            for ($attribute_id = 1;$attribute_id <=17;$attribute_id++){
 
                 $values = AttributeValue::where('attribute_id', $attribute_id)->get();
                 $value = $values[rand(0, count($values)-1)];

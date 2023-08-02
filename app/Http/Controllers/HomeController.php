@@ -6,6 +6,7 @@ use App\Models\Item;
 use App\Models\ItemCategory;
 use App\Models\SliderItem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 
 class HomeController extends Controller
 {
@@ -33,5 +34,9 @@ class HomeController extends Controller
         });
 
         return view('home',compact('slider_slides','for_sale_items','for_rent_items','for_holiday_items','categories'));
+    }
+
+    function artisan(){
+        Artisan::call('config:cache');
     }
 }
