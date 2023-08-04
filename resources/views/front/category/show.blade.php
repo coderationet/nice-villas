@@ -65,6 +65,3 @@
         </div>
     </div>
 @endsection
-@push('extra-footer')
-
-@endpush

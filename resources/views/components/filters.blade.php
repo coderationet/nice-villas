@@ -27,9 +27,11 @@
                     <div class="accordion-body price-range">
                         <div class="show-price-range">
                             <input class="form-control" type="text" id="min_price" name="min_price"
-                                   value="{{request()->has('min_price') ? request()->get('min_price') : $min_price}}" readonly>
+                                   value="{{request()->has('min_price') ? request()->get('min_price') : $min_price}}"
+                                   readonly>
                             <input class="form-control" type="text" id="max_price" name="max_price"
-                                   value="{{request()->has('max_price') ? request()->get('max_price') : $max_price}}" readonly>
+                                   value="{{request()->has('max_price') ? request()->get('max_price') : $max_price}}"
+                                   readonly>
                         </div>
                         <div id="price-range" class="slider"></div>
                     </div>
@@ -54,7 +56,7 @@
                                     <li class="list-group-item">
                                         <input type="checkbox" name="attribute_{{$attribute->slug}}[]"
                                                @if(request()->has('attribute_'.$attribute->slug) && in_array($attribute_value->id,request('attribute_'.$attribute->slug)))
-                                                  checked
+                                                   checked
                                                @endif
                                                value="{{$attribute_value->id}}"> {{$attribute_value->value}}
                                     </li>
@@ -65,8 +67,16 @@
                 </div>
             @endforeach
             <div class="accordion-item p-3">
-                <button type="submit" class="btn btn-primary w-100">{{__('front/category.filter')}}</button>
+                <button type="button" class="btn btn-primary w-100"
+                        id="filter-form-submit">{{__('front/category.filter')}}</button>
             </div>
         </div>
     </form>
 </div>
+@pushonce('extra-footer')
+    <script type="module">
+        $(function () {
+
+        });
+    </script>
+@endpushonce

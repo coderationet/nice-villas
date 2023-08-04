@@ -61,7 +61,6 @@ $(document).on('click', '.home-search', function () {
 
 });
 
-
 init_home();
 
 export {init_home};

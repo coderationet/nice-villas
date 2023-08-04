@@ -37,7 +37,7 @@ body{
 
 /* Define a transition duration during page visits */
 html.is-changing .transition-fade {
-    transition: opacity 0.2s;
+    transition: opacity 0.25s;
     opacity: 1;
 }
 /* Define the styles for the unloaded pages */
