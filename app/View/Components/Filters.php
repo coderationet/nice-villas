@@ -14,6 +14,7 @@ class Filters extends Component
      */
     public function __construct(
         public $items,
+        public $slug,
     )
     {}
 
@@ -40,6 +41,7 @@ class Filters extends Component
         $attributes = collect($attributes)->map(function ($attribute) use ($open_attributes) {
 
             $is_open = false;
+
             if (request()->has('attribute_'.$attribute->slug)) {
                 $is_open = true;
             }
@@ -59,6 +61,7 @@ class Filters extends Component
             'min_price' => $min_price,
             'max_price' => $max_price,
             'attribute_list' => $attributes,
+            'slug' => $this->slug,
         ]);
     }
 }

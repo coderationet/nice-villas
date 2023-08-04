@@ -57,36 +57,59 @@ class CategoryController extends Controller
         }
 
 
-
         $item_count = $items->count();
 
 
         $items = $items->with(['attributeValues' => function ($query) {
-            $query->whereIn('attribute_id', [2,17]);
+            $query->whereIn('attribute_id', [2, 17]);
         }]);
 
 
         $items = $items->paginate(12)->withQueryString();
 
 
-
-        return view('front.category.show', compact('category', 'items','item_count'));
+        return view('front.category.show', compact('category', 'items', 'item_count'));
     }
 
     function remove_filter_from_url()
     {
 
+        $ref = request()->headers->get('referer');
 
-        $parameters = request()->get('request_params');
+
+        $query_params = explode('?', $ref)[1];
+
+        $query_params = explode('&', $query_params);
+
+        $parameters = [];
+
+        foreach ($query_params as $query_param) {
+
+            $query_param = explode('=', $query_param);
+
+            $query_param[0] = str_replace('%5B%5D', '', $query_param[0]);
+            $query_param[0] = str_replace('[]', '', $query_param[0]);
+
+
+            if(!isset($parameters[$query_param[0]])){
+                $parameters[$query_param[0]] = [];
+            }
+
+            $parameters[$query_param[0]][] = $query_param[1];
+
+        }
+
+
+
         $attribute_value_id = request()->get('attribute_value_id');
 
         foreach ($parameters as $key => $parameter) {
-            if ($key == 'page'){
+            if ($key == 'page') {
                 unset($parameters[$key]);
                 continue;
             }
             if (str_contains($key, 'attribute_')) {
-                foreach ($parameter as $value_key =>  $value_id) {
+                foreach ($parameter as $value_key => $value_id) {
                     if ($value_id == $attribute_value_id) {
                         unset($parameters[$key][$value_key]);
                     }
@@ -94,15 +117,15 @@ class CategoryController extends Controller
             }
         }
 
-        $url = route('front.category.show',request()->get('category_slug')) . '?';
+        $url = route('front.category.show', request()->get('category_slug')) . '?';
 
         foreach ($parameters as $key => $parameter) {
             if (str_contains($key, 'attribute_')) {
-                foreach ($parameter as $value_key =>  $value_id) {
+                foreach ($parameter as $value_key => $value_id) {
                     $url .= $key . '[]=' . $value_id . '&';
                 }
             } else {
-                $url .= $key . '=' . $parameter . '&';
+                $url .= $key . '=' . $parameter[0] . '&';
             }
         }
 

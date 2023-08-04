@@ -1,8 +1,10 @@
 import Swiper from 'swiper';
 import 'swiper/css';
 
-window.Swiper = Swiper;
 
-const swiper = new Swiper('.home-slider', {
+const home_swiper = new Swiper('.home-slider', {
     loop: true,
 });
+
+export default home_swiper;
+

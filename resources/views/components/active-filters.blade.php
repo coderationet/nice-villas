@@ -21,19 +21,18 @@
 @pushonce('extra-footer')
     <script type="module">
         $(function () {
-            $('.remove-filter').on('click', function () {
+            $(document).on('click','.remove-filter', function () {
                 let attributeValueId = $(this).data('attribute-value-id');
                 $.ajax({
                     url: '{{route('front.category.remove-filter')}}',
                     type: 'GET',
                     data: {
                         attribute_value_id: attributeValueId,
-                        request_params: {!! json_encode(request()->all()) !!},
                         category_slug: '{{$category->slug}}'
                     },
                     success: function (response) {
                         if (response.status === 'success') {
-                            window.location = response.url;
+                            swup.navigate(response.url);
                         }
                     }
                 });

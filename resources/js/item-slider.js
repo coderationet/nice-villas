@@ -2,6 +2,8 @@ import Swiper from 'swiper';
 import 'swiper/css';
 
 
-const swiper = new Swiper('.item-slider', {
+const item_swiper = new Swiper('.item-slider', {
     loop: true,
 });
+
+export default item_swiper;

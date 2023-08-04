@@ -14,7 +14,7 @@
     <div class="container category-page page">
         <div class="row">
             <div class="col-md-3 mb-3">
-                <x-filters :items="$items"  />
+                <x-filters :items="$items" :slug="$category->slug"  />
             </div>
             <div class="col-md-9">
                 <x-active-filters  :category="$category"/>
@@ -66,20 +66,5 @@
     </div>
 @endsection
 @push('extra-footer')
-    <script type="module">
-        $(function () {
-            $("#price-range").slider({
-                step: 100,
-                range: true,
-                min: 0,
-                max: 100000,
-                values: [{{request()->get('min_price') ?? 0}}, {{request()->get('max_price') ?? 100000}}],
-                slide: function (event, ui) {
-                    $('#min_price').val(ui.values[0]);
-                    $('#max_price').val(ui.values[1]);
-                }
-            });
-            $("#priceRange").val($("#price-range").slider("values", 0) + " - " + $("#price-range").slider("values", 1));
-        });
-    </script>
+
 @endpush

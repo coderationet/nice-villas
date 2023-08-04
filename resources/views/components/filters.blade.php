@@ -1,5 +1,5 @@
 <div>
-    <form enctype="multipart/form-data" method="get" action="">
+    <form enctype="multipart/form-data" method="get" id="filter-form" action="{{route('front.category.show',$slug)}}">
         <div class="accordion" id="accordionPanelsStayOpenExample">
             <div class="accordion-item">
                 <h2 class="accordion-header">
@@ -59,14 +59,12 @@
                                                value="{{$attribute_value->id}}"> {{$attribute_value->value}}
                                     </li>
                                 @endforeach
-
                             </ul>
                         </div>
                     </div>
                 </div>
             @endforeach
             <div class="accordion-item p-3">
-
                 <button type="submit" class="btn btn-primary w-100">{{__('front/category.filter')}}</button>
             </div>
         </div>

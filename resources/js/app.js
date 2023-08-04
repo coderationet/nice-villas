@@ -4,4 +4,6 @@ import './home-slider';
 import './item-slider';
 import './category';
 import select2 from 'select2';
+import './swup';
+
 select2($);

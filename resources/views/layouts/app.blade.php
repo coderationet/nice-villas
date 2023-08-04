@@ -23,7 +23,9 @@
 </head>
 <body class="font-sans">
 <x-navigation/>
+<main id="swup" class="transition-fade">
 @yield('content')
+</main>
 <footer class="mt-5 bg-white w-100 p-4">
     <div class="container">
         {{ \App\Helpers\Option::get('footer_text')}}
