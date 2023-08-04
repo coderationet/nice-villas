@@ -14,8 +14,10 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
 
+    <base href="{{ url('/') }}">
     <!-- Scripts -->
     @vite(['resources/css/app.scss', 'resources/js/app.js'])
     @stack('extra-head')
@@ -24,13 +26,14 @@
 <body class="font-sans">
 <x-navigation/>
 <main id="swup" class="transition-fade">
-@yield('content')
+    @yield('content')
+    @stack('extra-footer')
 </main>
 <footer class="mt-5 bg-white w-100 p-4">
     <div class="container">
         {{ \App\Helpers\Option::get('footer_text')}}
     </div>
 </footer>
-@stack('extra-footer')
+
 </body>
 </html>
