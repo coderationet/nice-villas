@@ -59,8 +59,6 @@ $(document).on('click', '.home-search', function () {
 
     swup.navigate(url);
 
-    alert('adad');
-
 });
 
 
