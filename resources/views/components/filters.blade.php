@@ -73,10 +73,3 @@
         </div>
     </form>
 </div>
-@pushonce('extra-footer')
-    <script type="module">
-        $(function () {
-
-        });
-    </script>
-@endpushonce

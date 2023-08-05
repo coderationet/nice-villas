@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700;800&display=swap');
+
 .bg-custom-light{
     background-color: rgba(149, 157, 165,0.2);
 }
@@ -37,7 +39,7 @@ body{
 
 /* Define a transition duration during page visits */
 html.is-changing .transition-fade {
-    transition: opacity 0.25s;
+    transition: opacity 0.15s;
     opacity: 1;
 }
 /* Define the styles for the unloaded pages */

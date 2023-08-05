@@ -9,8 +9,10 @@
                 @foreach($slider_slides as $slide)
                     <div class="swiper-slide">
                         <img class="desktop-image d-none d-md-block"
+                             loading="lazy"
                              src="{{asset('storage/media/'.$slide->desktop->name)}}" alt="{{$slide->title}}">
                         <img class="mobile-image d-block d-md-none"
+                             loading="lazy"
                              src="{{asset('storage/media/'.$slide->mobile->name)}}" alt="{{$slide->title}}">
                     </div>
                 @endforeach
