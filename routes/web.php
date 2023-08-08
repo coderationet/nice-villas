@@ -21,6 +21,6 @@ Route::group(['as' => 'front.'], function () {
 
 
 
-require_once __DIR__ . '/custom/admin_routes.php';
+require __DIR__ . '/custom/admin_routes.php';
 
 require __DIR__ . '/auth.php';
