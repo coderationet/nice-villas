@@ -11,6 +11,10 @@ class AttributeHelper
     {
         $attributes = [];
 
+        if ($item->relationLoaded('attributeValues') === false) {
+            $item->load('attributeValues.attribute');
+        }
+
         foreach ($item->attributeValues as $attributeValue) {
             if (!isset($attributes[$attributeValue->attribute->id])) {
                 $attributes[$attributeValue->attribute->id] = [
